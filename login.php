@@ -12,24 +12,31 @@ if(@$_SESSION['user_info']['designation'] == 'Admin'){
     <body>
         <h2>Login Here</h2>
         <div>
-            <?php
-            if(isset($_SESSION['credentials'])) {
-            echo "<span style='color:red';>". $_SESSION['credentials']. "</span><br>";
-            unset($_SESSION['credentials']);
-            } ?>
+            <p>
+                <?php
+                if(isset($_SESSION['message'])) {
+                echo "<span style='color:green';>". $_SESSION['message']. "</span><br>";
+                unset($_SESSION['message']);
+                }
+                ?>
+            </p>
+            <p>
+                <?php
+                if(isset($_SESSION['error'])) {
+                echo "<span style='color:red';>". $_SESSION['error']. "</span><br>";
+                unset($_SESSION['error']);
+                }
+                ?>
+            </p>
 
             <form action="processlogin.php" method="POST">
             <label for="email">Email:</label>
             <input type="email" name="email"><br>
                 <?php if(isset($_SESSION['email'])){ echo "<span style='color:red';>". $_SESSION['email']. "</span><br>"; unset($_SESSION['email']); } ?>
-                <?php if(isset($_SESSION['email1'])){ echo "<span style='color:red';>". $_SESSION['email1']. "</span><br>";unset($_SESSION['email1']);} ?>
-                <?php if(isset($_SESSION['email2'])){ echo "<span style='color:red';>". $_SESSION['email2']. "</span><br>";unset($_SESSION['email2']);} ?>
-                <?php if(isset($_SESSION['email3'])){ echo "<span style='color:red';>". $_SESSION['email3']. "</span><br>";unset($_SESSION['email3']);} ?>
             <br>
             <label for="password">Password:</label>
             <input type="password"  name="password" ><br>
-                <?php if(isset($_SESSION['password0'])){ echo "<span style='color:red';>". $_SESSION['password0']. "</span><br>"; unset($_SESSION['password0']); } ?>
-                <?php if(isset($_SESSION['password1'])){ echo "<span style='color:red';>". $_SESSION['password1']. "</span><br>"; unset($_SESSION['password1']); } ?>
+                <?php if(isset($_SESSION['password'])){ echo "<span style='color:red';>". $_SESSION['password']. "</span><br>"; unset($_SESSION['password']); } ?>
             <br>
             <br>
             <input type="submit" name="Submit">

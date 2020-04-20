@@ -10,10 +10,8 @@ $errors= array();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-
   // checking email
   if(empty($_POST['email'])){
-
     $errors['email']='';
     $_SESSION['email']='email is required';
     header('location: login.php');
@@ -22,31 +20,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $email=$_POST['email'];
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $errors['email1'] = '';
-        $_SESSION['email1'] = 'Email is invalid';
+        $errors['email'] = '';
+        $_SESSION['email'] = 'Email is invalid';
         header('location: login.php');
     } else if(strlen($email) <= 5){
-        $errors['email2'] = '';
-        $_SESSION['email2'] = 'Email must not be less than 5';
+        $errors['email'] = '';
+        $_SESSION['email'] = 'Email must not be less than 5';
         header('location: login.php');
     } else if(!strpos($email, '.')){
-        $errors['email3'] = '';
-        $_SESSION['email3'] = 'Email must contain ' . ". " . 'symbol';
+        $errors['email'] = '';
+        $_SESSION['email'] = 'Email must contain ' . ". " . 'symbol';
         header('location: login.php');}
       }
 
 
       // checking password
     if(empty($_POST['password'])){
-        $errors['password']='';
-        $_SESSION['password0']='password is required';
+        $errors['password'] = '';
+        $_SESSION['password'] = 'password is required';
         header('location: login.php');
-
-          }
-      else{
-
+    } else{
         $password=$_POST['password'];
-        if(strlen($password) <= 7){$errors['password1']=''."<br>"; $_SESSION['password1']='password must atleast be 8 characters';  header('location: login.php');}
+        if(strlen($password) <= 7){
+            $errors['password'] = '';
+            $_SESSION['password'] = 'password must atleast be 8 characters';
+            header('location: login.php');}
 
       }
 
@@ -57,8 +55,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
   }else{
 
     $data=[
-         'email' =>$email,
-         'password' =>$password,
+         'email' => $email,
+         'password' => $password,
      ];
 
       $all_users= scandir("db/user/");
@@ -82,44 +80,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               if($user_content_password == $user_password){
 
                 $user_data=[
-                    'id' => $decode_user_content->id,
-                    'reg_time'=> $decode_user_content->reg_time,
-                    'reg_date'=> $decode_user_content->reg_date,
+                    'id'          => $decode_user_content->id,
+                    'reg_time'    => $decode_user_content->reg_time,
+                    'reg_date'    => $decode_user_content->reg_date,
                     'logout_time' => $decode_user_content->logout_time,
                     'logout_date' => $decode_user_content->logout_date,
-                    'login_time' => $login_time,
-                    'login_date' => $login_date,
-                    'firstname' =>$decode_user_content->firstname,
-                    'lastname' =>$decode_user_content->lastname,
-                    'email' =>$decode_user_content->email,
-                    'gender' =>$decode_user_content->gender,
-                    'designation' =>$decode_user_content->designation,
-                    'department' =>$decode_user_content->department,
-                    'password' =>$decode_user_content->password
+                    'login_time'  => $login_time,
+                    'login_date'  => $login_date,
+                    'firstname'   => $decode_user_content->firstname,
+                    'lastname'    => $decode_user_content->lastname,
+                    'email'       => $decode_user_content->email,
+                    'gender'      => $decode_user_content->gender,
+                    'designation' => $decode_user_content->designation,
+                    'department'  => $decode_user_content->department,
+                    'password'    => $decode_user_content->password
                  ];
 
-                   $_SESSION['user_info']= $user_data;
-                   header('location: dashboard.php');
+                   $_SESSION['user_info'] = $user_data;
+
+
+                   if($decode_user_content->designation == "Admin"){
+                       $_SESSION['success'] = 'You are logged in as an - Admin';
+                       header('location: admin/admin_dashboard.php');
+                   } else if($decode_user_content->designation == "Staff"){
+                       $_SESSION['success'] = 'You are logged in as a - Staff';
+                       header('location: staff_dashboard.php');
+                   } else if($decode_user_content->designation == "Patient") {
+                       $_SESSION['success'] = 'You are logged in as a - Patient';
+                       header('location: dashboard.php');
+                   }
+                     die();
+
                  }
                  else{
-                    $_SESSION['credentials']='Incorrect Email or Password';
+                    $_SESSION['error'] = 'Incorrect Password';
                      header('location: login.php'); ////redirect to login if password or email is incorrect
                  }
 
-
-              if($decode_user_content->designation == "Admin"){
-                  $_SESSION['designation'] = 'Admin';
-                  header('location: Admin/admin_dashboard.php');
-              } else if($decode_user_content->designation == "Staff"){
-                  $_SESSION['designation'] = 'Staff';
-                  header('location: staff_dashboard.php');
-              }
-                die();
+         } else {
+             $_SESSION['error'] = 'Incorrect Email or Password';
+             header('location: login.php');
          }
        }
-       if($current_user !==$email.".json"){
-           $_SESSION['credentials'] = 'Incorrect Email or Password';
-           header('location: login.php');
-     }
    }
  }

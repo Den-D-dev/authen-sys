@@ -12,15 +12,16 @@ if($_SESSION['user_info']['designation'] !== 'Admin'){
     </head>
     <body>
         <h3> WELCOME ADMIN</h3>
+        <p>
+            <?php
+            if(isset($_SESSION['success'])){
+                echo "<span style='color:green';>". $_SESSION['success']. "</span><br>";
+                unset($_SESSION['success']);
+            }
+            ?>
+        </p>
 
-        <?php
-        if(isset($_SESSION['success'])){
-            echo "<span style='color:green';>". $_SESSION['success']. "</span><br>";
-            unset($_SESSION['success']);
-        }
-        ?>
-
-        <p> Name:<?php echo $_SESSION['user_info']['firstname']."<br>"; ?> </p>
+        <p> Name:<?php echo $_SESSION['user_info']['firstname']; echo ' ' .$_SESSION['user_info']['lastname']."<br>";?> </p>
         <p> Designation:<?php echo $_SESSION['user_info']['designation']."<br>"; ?> </p>
         <p> Registration time:<?php echo  $_SESSION['user_info']['reg_time']."<br>"; ?> </p>
         <p> Registration Date:<?php echo  $_SESSION['user_info']['reg_date']."<br>"; ?> </p>
@@ -29,7 +30,7 @@ if($_SESSION['user_info']['designation'] !== 'Admin'){
         <p> Last Login Time:<?php echo $_SESSION['user_info']['logout_time']."<br>"; ?> </p>
         <p> Last Login Date:<?php echo $_SESSION['user_info']['logout_date']."<br>"; ?> </p>
 
-        <h3><a href="Admin_register.php">Add User</a></h3>
+        <h3><a href = "admin_add_user.php">Add User</a></h3>
 
         <br>
            <p><a href='../logout.php'>LOGOUT</a></p>
