@@ -9,7 +9,7 @@ if($_SESSION['user_info']['designation'] !== 'Admin'){
         <title></title>
     </head>
     <body>
-        <a href="admin_dashboard.php">Go back</a>
+        <a href="admin_dashboard.php">Go back</a><br>
         <h2>Register A New User</h2>
         <div>
             <form action="processadminreg.php" method="POST">

@@ -15,6 +15,7 @@ if(@$_SESSION['designation'] == 'Admin'){
     <title></title>
     </head>
     <body>
+        <a href="index.php">Go back</a><br>
         <h2>Welcome! Please register</h2>
         <div>
             <form action="processreg.php" method="POST">
@@ -39,7 +40,7 @@ if(@$_SESSION['designation'] == 'Admin'){
                 type="text"  name="lname" ><br>
                     <?php if(isset($_SESSION['lastname'])){ echo "<span style='color:red';>". $_SESSION['lastname']. "</span><br>"; unset($_SESSION['lastname']); } ?>
                 <br>
-                
+
                     <label for="email">Email:</label>
                     <input
                     <?php
