@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+include('lib/header.php');
 
 if(isset($_SESSION['user_info']) && !empty($_SESSION['user_info']['firstname'])){
     header('location: dashboard.php');
@@ -9,13 +10,6 @@ if(@$_SESSION['designation'] == 'Admin'){
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-    <title></title>
-    </head>
-    <body>
-        <a href="index.php">Go back</a><br>
         <h2>Welcome! Please register</h2>
         <div>
             <form action="processreg.php" method="POST">
@@ -27,7 +21,7 @@ if(@$_SESSION['designation'] == 'Admin'){
                     }
                 ?>
                  type="text" name="fname"><br>
-                    <?php if(isset($_SESSION['firstname'])){ echo "<span style='color:red';>". $_SESSION['firstname']. "</span><br>"; unset($_SESSION['firstname']); } ?>
+                    <?php if(isset($_SESSION['f_name_err'])){ echo "<span style='color:red';>". $_SESSION['f_name_err']. "</span><br>"; unset($_SESSION['f_name_err']); } ?>
                 <br>
 
                 <label for="lname">Last name:</label>
@@ -38,7 +32,7 @@ if(@$_SESSION['designation'] == 'Admin'){
                     }
                 ?>
                 type="text"  name="lname" ><br>
-                    <?php if(isset($_SESSION['lastname'])){ echo "<span style='color:red';>". $_SESSION['lastname']. "</span><br>"; unset($_SESSION['lastname']); } ?>
+                    <?php if(isset($_SESSION['l_name_err'])){ echo "<span style='color:red';>". $_SESSION['l_name_err']. "</span><br>"; unset($_SESSION['l_name_err']); } ?>
                 <br>
 
                     <label for="email">Email:</label>
@@ -49,13 +43,13 @@ if(@$_SESSION['designation'] == 'Admin'){
                         }
                     ?>
                      type="email"  name="email" ><br>
-                    <?php if(isset($_SESSION['email'])){ echo "<span style='color:red';>". $_SESSION['email']. "</span><br>"; unset($_SESSION['email']); } ?>
-                    <?php if(isset($_SESSION['user'])){ echo "<span style='color:red';>". $_SESSION['user']. "</span><br>";unset($_SESSION['user']);} ?>
+                    <?php if(isset($_SESSION['email_err'])){ echo "<span style='color:red';>". $_SESSION['email_err']. "</span><br>"; unset($_SESSION['email_err']); } ?>
+                    <?php if(isset($_SESSION['user_err'])){ echo "<span style='color:red';>". $_SESSION['user_err']. "</span><br>";unset($_SESSION['user_err']);} ?>
                 <br>
 
                 <label for="password">Password:</label>
                 <input type="password"  name="password" ><br>
-                    <?php if(isset($_SESSION['password'])){ echo "<span style='color:red';>". $_SESSION['password']. "</span><br>"; unset($_SESSION['password']); } ?>
+                    <?php if(isset($_SESSION['pwd_err'])){ echo "<span style='color:red';>". $_SESSION['pwd_err']. "</span><br>"; unset($_SESSION['pwd_err']); } ?>
                 <br>
 
                 <label for="gender">Gender:</label>
@@ -78,7 +72,7 @@ if(@$_SESSION['designation'] == 'Admin'){
                      value="Female">Female</option>
                 </select>
                 <br>
-                <?php if(isset($_SESSION['gender'])){ echo "<span style='color:red';>". $_SESSION['gender']. "</span><br>"; unset($_SESSION['gender']); } ?>
+                <?php if(isset($_SESSION['gender_err'])){ echo "<span style='color:red';>". $_SESSION['gender_err']. "</span><br>"; unset($_SESSION['gender_err']); } ?>
                 <br>
 
                 <label for="designation">Designation:</label>
@@ -108,7 +102,7 @@ if(@$_SESSION['designation'] == 'Admin'){
                     ?>
                      value="Patient">Patient</option>
                 </select><br>
-                <?php if(isset($_SESSION['designation'])){ echo "<span style='color:red';>". $_SESSION['designation']. "</span><br>"; unset($_SESSION['designation']); } ?>
+                <?php if(isset($_SESSION['desig_err'])){ echo "<span style='color:red';>". $_SESSION['desig_err']. "</span><br>"; unset($_SESSION['desig_err']); } ?>
                 <br>
 
                 <label for="department">Department:</label>
@@ -119,12 +113,12 @@ if(@$_SESSION['designation'] == 'Admin'){
                     }
                 ?>
                  type="text"  name="department" ><br>
-                    <?php if(isset($_SESSION['department'])){ echo "<span style='color:red';>". $_SESSION['department']. "</span><br>"; unset($_SESSION['department']); } ?>
+                    <?php if(isset($_SESSION['dept_err'])){ echo "<span style='color:red';>". $_SESSION['dept_err']. "</span><br>"; unset($_SESSION['dept_err']); } ?>
                 <br>
 
                 <br>
                 <input type="submit" name="Submit">
             </form>
         </div>
-    </body>
-</html>
+
+<?php include('lib/footer.php') ?>

@@ -1,15 +1,20 @@
-<?php session_start();
+<?php
+include('lib/header.php');
 
-if(@$_SESSION['user_info']['designation'] == 'Admin'){
-  header('location: admin/admin_dashboard.php');
+// check if a user is not logged in (ie, has no session loggedIn) send them back to the login page
+if(isset($_SESSION['loggedin']) && $_SESSION['designation'] == "Patient"){
+    header("location: dashboard.php");
+} else if (isset($_SESSION['loggedin']) && $_SESSION['designation'] == "Staff") {
+    header("location: staff_dashboard.php");
+} else if (isset($_SESSION['loggedin']) && $_SESSION['designation'] == "Admin") {
+    header('location: admin/admin_dashboard.php');
 }
+
+// if(@$_SESSION['user_info']['designation'] == 'Admin'){
+//   header('location: admin/admin_dashboard.php');
+// }
+
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
         <h2>Login Here</h2>
         <div>
             <p>
@@ -32,16 +37,15 @@ if(@$_SESSION['user_info']['designation'] == 'Admin'){
             <form action="processlogin.php" method="POST">
             <label for="email">Email:</label>
             <input type="email" name="email"><br>
-                <?php if(isset($_SESSION['email'])){ echo "<span style='color:red';>". $_SESSION['email']. "</span><br>"; unset($_SESSION['email']); } ?>
+                <?php if(isset($_SESSION['email_err'])){ echo "<span style='color:red';>". $_SESSION['email_err']. "</span><br>"; unset($_SESSION['email_err']); } ?>
             <br>
             <label for="password">Password:</label>
             <input type="password"  name="password" ><br>
-                <?php if(isset($_SESSION['password'])){ echo "<span style='color:red';>". $_SESSION['password']. "</span><br>"; unset($_SESSION['password']); } ?>
+                <?php if(isset($_SESSION['pwd_err'])){ echo "<span style='color:red';>". $_SESSION['pwd_err']. "</span><br>"; unset($_SESSION['pwd_err']); } ?>
             <br>
             <br>
             <input type="submit" name="Submit">
             </form>
-            <p><a href="register.php">Click here to register</a></p>
         </div>
-    </body>
-</html>
+
+<?php include('lib/footer.php') ?>
