@@ -9,7 +9,7 @@
 
        <?php }else{?>
         <a href='logout.php'>Logout</a> |
-        <a href='reset.php'>Reset Password</a>
+        <a href='reset.php'>Change password</a>
        <?php } ?>
 
        </p>

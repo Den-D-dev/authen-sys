@@ -1,11 +1,5 @@
 <?php
 include('lib/header.php');
-
-//check if token is set
-// if(!isset($_GET['token'])){
-//     $_SESSION['error'] = "You are not authorized to view that page";
-//     header("location: login.php");
-// }
 ?>
 
 

@@ -1,7 +1,7 @@
 <?php
 include('lib/header.php');
 
-// check if a user is not logged in (ie, has no session loggedIn) send them back to the login page
+// check if a user is not logged in (ie, has no session loggedIn) send to appropriate dashboard
 if(isset($_SESSION['loggedin']) && $_SESSION['designation'] == "Patient"){
     header("location: dashboard.php");
 } else if (isset($_SESSION['loggedin']) && $_SESSION['designation'] == "Staff") {

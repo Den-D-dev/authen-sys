@@ -97,6 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                  ];
 
                    $_SESSION['user_info']   = $user_data;
+                   $_SESSION['email']    = $decode_user_content->email;
                    $_SESSION['loggedin']    = $decode_user_content->id;
                    $_SESSION['designation'] = $decode_user_content->designation;
 

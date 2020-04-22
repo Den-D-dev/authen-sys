@@ -3,13 +3,16 @@ session_start();
 ////ERROR ARRAY;
 $errors= array();
 
-$token = $_POST['token'];
+if (!isset($_SESSION['loggedin'])) { // this is to check is the user is not logged in run the token then but if user is logged in skip the token
+    $token = $_POST['token'];
+    $_SESSION ['token'] = $token;
+}
+
 $email = $_POST['email'] != '' ?  $_POST['email'] : $errorCount++;
 $password = $_POST['password'] != '' ?  $_POST['password'] : $errorCount++;
 
 
 //store session for input
-$_SESSION ['token'] = $token;
 $_SESSION ['email'] = $email;
 $_SESSION ['password'] = $password;
 
@@ -61,7 +64,16 @@ $_SESSION ['password'] = $password;
             $tokenObject = json_decode($tokenContent);
             $tokenFromDB = $tokenObject->token;
 
-            if ($tokenFromDB == $token) {
+            //  if user is not logged in look for his token permission but user is logged in we assume that
+            // he is authorized to change the password
+            if (isset($_SESSION['loggedin'])) {
+                $checkToken = true;
+            } else {
+                $checkToken = $tokenFromDB == $token;
+            }
+
+
+            if ($checkToken) {
                 // echo "user can update the password";
                 // die();
                 $all_users= scandir("db/user/");
@@ -105,8 +117,8 @@ $_SESSION ['password'] = $password;
 
             } // if token was right, process user and save the new password
         }
-        
-        $_SESSION['error'] = "Password Reset Failed token/email invalid" . '' . $first_name;
+
+        $_SESSION['reset_error'] = "Password Reset Failed token/email invalid" . '' . $first_name;
         header("location: login.php");
     }
   }
