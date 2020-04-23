@@ -1,5 +1,6 @@
 <?php
 include('lib/header.php');
+require_once('functions/alert.php');
 ?>
 
 
@@ -9,18 +10,8 @@ include('lib/header.php');
 <form action ='processforgot.php' method ='POST'>
     <p>
     <?php
-        if(isset($_SESSION['message']) && !empty($_SESSION['message'])){
-            echo "<span style ='color: green'>" . $_SESSION['message'] . "</span> ";
-            session_destroy();
-        }
-    ?>
-    </p>
-    <p>
-    <?php
-        if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
-            echo "<span style ='color: red'>" . $_SESSION['error'] . "</span> ";
-            session_destroy();
-        }
+        print_msg('message', 'green');
+        print_msg('error', 'red');
     ?>
     </p>
 

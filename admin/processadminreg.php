@@ -3,22 +3,6 @@ session_start();
 $errors = array();
 
 
-$firstname   = "";
-$lastname    = "";
-$gender      = "";
-$dapartment  = "";
-$email       = "";
-$designation = "";
-$password    = "";
-
-//store session for input
-$_SESSION ['fname'] = $firstname;
-$_SESSION ['lname'] = $lastname;
-$_SESSION ['email'] = $email;
-$_SESSION ['gender'] = $gender;
-$_SESSION ['designation'] = $designation;
-$_SESSION ['department'] = $department;
-
 // Validate form fileds
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -134,6 +118,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header('location: admin_add_user.php');
         }
     }
+
+//store session for input
+$_SESSION ['fname'] = $firstname;
+$_SESSION ['lname'] = $lastname;
+$_SESSION ['email'] = $email;
+$_SESSION ['gender'] = $gender;
+$_SESSION ['designation'] = $designation;
+$_SESSION ['department'] = $department;
 
 //checking for errors and iserting into database;
 

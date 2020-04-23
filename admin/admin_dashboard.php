@@ -1,5 +1,6 @@
 <?php
 include('../lib/header.php');
+require_once('../functions/alert.php');
 
 if($_SESSION['user_info']['designation'] !== 'Admin'){
   header('location: ../login.php');
@@ -28,4 +29,14 @@ if($_SESSION['user_info']['designation'] !== 'Admin'){
         <h3><a href = "admin_add_user.php">Add User</a></h3>
 
         <br>
-<?php include('lib/footer.php') ?>
+<?php //include('../lib/footer.php') ?>
+
+   <p>
+   <a href='/authen-sys/index.php'>Home</a> |
+
+    <a href='/authen-sys/logout.php'>Logout</a> |
+    <a href='/authen-sys/reset.php'>Change password</a>
+
+   </p>
+</body>
+</html>

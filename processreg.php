@@ -3,22 +3,6 @@ session_start();
 ////ERROR ARRAY;
 $errors= array();
 
-//input variable///////
-$firstname   = "";
-$lastname    = "";
-$email       = "";
-$password    = "";
-$gender      = "";
-$dapartment  = "";
-$designation = "";
-
-//store session for input
-$_SESSION ['fname'] = $firstname;
-$_SESSION ['lname'] = $lastname;
-$_SESSION ['email'] = $email;
-$_SESSION ['gender'] = $gender;
-$_SESSION ['designation'] = $designation;
-$_SESSION ['department'] = $department;
 
 
 // Validate form fields
@@ -27,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
      // Validate first name
     if(empty($_POST['fname'])){
         $errors['f_name_err'] = "";
-        $_SESSION['f_name_err'] = 'Name is required';
+        $_SESSION['f_name_err'] = 'First name is required';
        header('location: register.php');
 
     } else {
@@ -38,7 +22,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
          header('location: register.php');
      } else if(strlen($firstname) <= 2){
          $errors['f_name_err'] = "";
-         $_SESSION['f_name_err'] = 'Name must not be short';
+         $_SESSION['f_name_err'] = 'First name must not be short';
          header('location: register.php');
      } else if(is_numeric($firstname )){
          $errors['f_name_err'] = "";
@@ -51,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate last name
     if(empty($_POST['lname'])){
         $errors['l_name_err'] = "";
-        $_SESSION['l_name_err'] = 'LastName is required';
+        $_SESSION['l_name_err'] = 'last name is required';
         header('location: register.php');
     } else {
     $lastname=$_POST['lname'];
@@ -61,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header('location: register.php');
         } else if(strlen($lastname) <= 2){
             $errors['l_name_err'] = "";
-            $_SESSION['l_name_err'] = 'LastName must not be short';
+            $_SESSION['l_name_err'] = 'Last name must not be short';
             header('location: register.php');
         } else if(is_numeric($lastname )){
             $errors['l_name_err'] = "";
@@ -84,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //Validate dept
     if(empty($_POST['department'])){
         echo $errors['dept_err'] = "";
-        $_SESSION['dept_err'] = 'department is required';
+        $_SESSION['dept_err'] = 'Department is required';
         header('location: register.php');
     }else{
         $department=$_POST['department'];
@@ -94,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //Validate Designation
     if(empty($_POST['designation'])){
         $errors['desig_err'] = '';
-        $_SESSION['desig_err'] = 'designation is required';
+        $_SESSION['desig_err'] = 'Designation is required';
         header('location: register.php');
     }else{
         $designation=$_POST['designation'];
@@ -103,13 +87,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     //Validate Password
     if(empty($_POST['password'])){
         $errors['pwd_err'] = '';
-        $_SESSION['pwd_err'] = 'password is required';
+        $_SESSION['pwd_err'] = 'Password is required';
         header('location: register.php');
     }else{
         $password = $_POST['password'];
         if(strlen($password) <= 7){
             $errors['pwd_err'] = '';
-            $_SESSION['pwd_err'] = 'paasword must atleast be 8 characters';
+            $_SESSION['pwd_err'] = 'Password must atleast be 8 characters';
             header('location: register.php');
         }
     }
@@ -118,7 +102,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       //Validate Email
     if(empty($_POST['email'])){
         $errors['email_err'] = '';
-        $_SESSION['email_err'] = 'email is required';
+        $_SESSION['email_err'] = 'Email is required';
         header('location: register.php');
     }else{
         $email=$_POST['email'];
@@ -137,6 +121,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header('location: register.php');
         }
     }
+
+    //store session for input
+    $_SESSION ['fname'] = $firstname;
+    $_SESSION ['lname'] = $lastname;
+    $_SESSION ['email'] = $email;
+    $_SESSION ['gender'] = $gender;
+    $_SESSION ['designation'] = $designation;
+    $_SESSION ['department'] = $department;
 
 
     //checking for errors before iserting into database;

@@ -104,8 +104,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                    if($decode_user_content->designation == "Admin"){
                        $_SESSION['success'] = 'You are logged in as an - Admin';
                        header('location: admin/admin_dashboard.php');
-                   } else if($decode_user_content->designation == "Staff"){
-                       $_SESSION['success'] = 'You are logged in as a - Staff';
+                   } else if($decode_user_content->designation == "Medical Team"){
+                       $_SESSION['success'] = 'You are logged in as a - Medical Team';
                        header('location: staff_dashboard.php');
                    } else if($decode_user_content->designation == "Patient") {
                        $_SESSION['success'] = 'You are logged in as a - Patient';

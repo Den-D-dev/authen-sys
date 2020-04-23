@@ -1,8 +1,11 @@
 <?php
 include('lib/header.php');
+require_once('functions/alert.php');
+require_once('functions/user.php');
+
 
 //check if token user does not possess a generated token redirect the user to the login oage instead
-if(!isset($_SESSION['loggedin']) && !isset($_GET['token']) && !isset($_SESSION['token'])){
+if(!is_user_loggedIn() && !is_token_set()){
     $_SESSION['error'] = "You are not authorized to view that page";
     header("location: login.php");
 }
@@ -22,10 +25,10 @@ if(!isset($_SESSION['loggedin']) && !isset($_GET['token']) && !isset($_SESSION['
     ?>
     </p>
 
-    <?php if (!isset($_SESSION['loggedin'])) { ?>
+    <?php if (!is_user_loggedIn()) { ?>
     <input
     <?php
-        if (isset($_SESSION['token'])) {
+        if (is_token_set_in_session()) {
             echo "value='" .$_SESSION['token']. "'";
         } else {
             echo "value='" .$_GET['token']. "'";
@@ -42,11 +45,11 @@ if(!isset($_SESSION['loggedin']) && !isset($_GET['token']) && !isset($_SESSION['
         }
     ?>
     type="email" name="email"><br>
-        <?php if(isset($_SESSION['email_err'])){ echo "<span style='color:red';>". $_SESSION['email_err']. "</span><br>"; unset($_SESSION['email_err']); } ?>
+        <?php print_err_msg('email_err', 'red'); ?>
     <br>
     <label for="password">New Password:</label><br>
     <input type="password"  name="password" ><br>
-        <?php if(isset($_SESSION['pwd_err'])){ echo "<span style='color:red';>". $_SESSION['pwd_err']. "</span><br>"; unset($_SESSION['pwd_err']); } ?>
+        <?php print_err_msg('pwd_err', 'red'); ?>
     <br>
     <br>
     <input type="submit" name="Submit">
