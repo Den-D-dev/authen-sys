@@ -3,46 +3,30 @@ session_start();
 ////ERROR ARRAY;
 $errors= array();
 
-//input variable///////
-$firstname   = "";
-$lastname    = "";
-$gender      = "";
-$dapartment  = "";
-$email       = "";
-$designation = "";
-$password    = "";
 
 
 // Validate form fields
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    //store session for input
-    $_SESSION ['fname'] = $firstname;
-    $_SESSION ['lname'] = $lastname;
-    $_SESSION ['email'] = $email;
-    $_SESSION ['gender'] = $gender;
-    $_SESSION ['designation'] = $designation;
-    $_SESSION ['department'] = $department;
-
      // Validate first name
     if(empty($_POST['fname'])){
-        $errors['firstname'] = "";
-        $_SESSION['firstname'] = 'Name is required';
+        $errors['f_name_err'] = "";
+        $_SESSION['f_name_err'] = 'First name is required';
        header('location: register.php');
 
     } else {
     $firstname=$_POST['fname'];
      if(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $firstname)){
-         $errors['firstname'] = "";
-         $_SESSION['firstname'] = 'Numbers not required in name field';
+         $errors['f_name_err'] = "";
+         $_SESSION['f_name_err'] = 'Numbers not required in name field';
          header('location: register.php');
      } else if(strlen($firstname) <= 2){
-         $errors['firstname'] = "";
-         $_SESSION['firstname'] = 'Name must not be short';
+         $errors['f_name_err'] = "";
+         $_SESSION['f_name_err'] = 'First name must not be short';
          header('location: register.php');
      } else if(is_numeric($firstname )){
-         $errors['firstname'] = "";
-         $_SESSION['firstname'] = 'Numbers not required in name field';
+         $errors['f_name_err'] = "";
+         $_SESSION['f_name_err'] = 'Numbers not required in name field';
          header('location: register.php');
       }
     }
@@ -50,31 +34,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Validate last name
     if(empty($_POST['lname'])){
-        $errors['lastname'] = "";
-        $_SESSION['lastname'] = 'LastName is required';
+        $errors['l_name_err'] = "";
+        $_SESSION['l_name_err'] = 'last name is required';
         header('location: register.php');
     } else {
     $lastname=$_POST['lname'];
         if(preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $lastname)){
-            $errors['lastname'] = "";
-            $_SESSION['lastname'] = 'Numbers not required in lastname field';
+            $errors['l_name_err'] = "";
+            $_SESSION['l_name_err'] = 'Numbers not required in lastname field';
             header('location: register.php');
         } else if(strlen($lastname) <= 2){
-            $errors['lastname'] = "";
-            $_SESSION['lastname'] = 'LastName must not be short';
+            $errors['l_name_err'] = "";
+            $_SESSION['l_name_err'] = 'Last name must not be short';
             header('location: register.php');
         } else if(is_numeric($lastname )){
-            $errors['lastname'] = "";
-            $_SESSION['lastname'] = 'Numbers not required in lastname field';
+            $errors['l_name_err'] = "";
+            $_SESSION['l_name_err'] = 'Numbers not required in lastname field';
             header('location: register.php');
         }
     }
 
 
       //Validate gender
-    if($_POST['gender'] == " "){
-        $errors['gender'] = '';
-        $_SESSION['gender'] = 'Gender is required';
+    if(empty($_POST['gender'])){
+        $errors['gender_err'] = '';
+        $_SESSION['gender_err'] = 'Gender is required';
         header('location: register.php');
     }else{
         $gender=$_POST['gender'];
@@ -83,8 +67,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         //Validate dept
     if(empty($_POST['department'])){
-        echo $errors['department'] = "";
-        $_SESSION['department'] = 'department is required';
+        echo $errors['dept_err'] = "";
+        $_SESSION['dept_err'] = 'Department is required';
         header('location: register.php');
     }else{
         $department=$_POST['department'];
@@ -92,9 +76,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     //Validate Designation
-    if($_POST['designation'] == " "){
-        $errors['designation'] = '';
-        $_SESSION['designation'] = 'designation is required';
+    if(empty($_POST['designation'])){
+        $errors['desig_err'] = '';
+        $_SESSION['desig_err'] = 'Designation is required';
         header('location: register.php');
     }else{
         $designation=$_POST['designation'];
@@ -102,14 +86,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     //Validate Password
     if(empty($_POST['password'])){
-        $errors['password'] = '';
-        $_SESSION['password'] = 'password is required';
+        $errors['pwd_err'] = '';
+        $_SESSION['pwd_err'] = 'Password is required';
         header('location: register.php');
     }else{
         $password = $_POST['password'];
         if(strlen($password) <= 7){
-            $errors['password'] = '';
-            $_SESSION['password'] = 'paasword must atleast be 8 characters';
+            $errors['pwd_err'] = '';
+            $_SESSION['pwd_err'] = 'Password must atleast be 8 characters';
             header('location: register.php');
         }
     }
@@ -117,26 +101,34 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
       //Validate Email
     if(empty($_POST['email'])){
-        $errors['email'] = '';
-        $_SESSION['email'] = 'email is required';
+        $errors['email_err'] = '';
+        $_SESSION['email_err'] = 'Email is required';
         header('location: register.php');
     }else{
         $email=$_POST['email'];
 
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $errors['email'] = '';
-            $_SESSION['email'] = 'Invalid email';
+            $errors['email_err'] = '';
+            $_SESSION['email_err'] = 'Invalid email';
             header('location: register.php');
         } else if(strlen($email) <= 5){
-            $errors['email'] = '';
-            $_SESSION['email'] = 'Email must not contain more than 5 characters';
+            $errors['email_err'] = '';
+            $_SESSION['email_err'] = 'Email must not contain more than 5 characters';
             header('location: register.php');
         } else if(!strpos($email, '.')){
-            $errors['email'] = '';
-            $_SESSION['email'] = 'Email must contain ' . "." . 'symbol';
+            $errors['email_err'] = '';
+            $_SESSION['email_err'] = 'Email must contain ' . "." . 'symbol';
             header('location: register.php');
         }
     }
+
+    //store session for input
+    $_SESSION ['fname'] = $firstname;
+    $_SESSION ['lname'] = $lastname;
+    $_SESSION ['email'] = $email;
+    $_SESSION ['gender'] = $gender;
+    $_SESSION ['designation'] = $designation;
+    $_SESSION ['department'] = $department;
 
 
     //checking for errors before iserting into database;
@@ -177,8 +169,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $current_user = $all_users[$counter];
 
         if($current_user == $email.".json"){
-            echo $errors['user'] = '';
-            $_SESSION['user'] = 'User with the same email already exist';
+            echo $errors['user_err'] = '';
+            $_SESSION['user_err'] = 'User with the same email already exist';
             header('location: register.php');
             die();
         }

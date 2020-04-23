@@ -12,38 +12,38 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
   // checking email
   if(empty($_POST['email'])){
-    $errors['email']='';
-    $_SESSION['email']='email is required';
+    $errors['email_err']='';
+    $_SESSION['email_err']='email is required';
     header('location: login.php');
   }else{
 
     $email=$_POST['email'];
 
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $errors['email'] = '';
-        $_SESSION['email'] = 'Email is invalid';
+        $errors['email_err'] = '';
+        $_SESSION['email_err'] = 'Email is invalid';
         header('location: login.php');
     } else if(strlen($email) <= 5){
-        $errors['email'] = '';
-        $_SESSION['email'] = 'Email must not be less than 5';
+        $errors['email_err'] = '';
+        $_SESSION['email_err'] = 'Email must not be less than 5';
         header('location: login.php');
     } else if(!strpos($email, '.')){
-        $errors['email'] = '';
-        $_SESSION['email'] = 'Email must contain ' . ". " . 'symbol';
+        $errors['email_err'] = '';
+        $_SESSION['email_err'] = 'Email must contain ' . ". " . 'symbol';
         header('location: login.php');}
       }
 
 
       // checking password
     if(empty($_POST['password'])){
-        $errors['password'] = '';
-        $_SESSION['password'] = 'password is required';
+        $errors['pwd_err'] = '';
+        $_SESSION['pwd_err'] = 'password is required';
         header('location: login.php');
     } else{
         $password=$_POST['password'];
         if(strlen($password) <= 7){
-            $errors['password'] = '';
-            $_SESSION['password'] = 'password must atleast be 8 characters';
+            $errors['pwd_err'] = '';
+            $_SESSION['pwd_err'] = 'password must atleast be 8 characters';
             header('location: login.php');}
 
       }
@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
          if($current_user == $email.".json"){
 
-            //checking user password from the jason content in the get_included_files
+            //checking user password from the json content in the get_included_files
             $usercontent = file_get_contents("db/user/".$email.".json");
             $decode_user_content = json_decode($usercontent);
             $user_content_password = $decode_user_content->password;
@@ -96,14 +96,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     'password'    => $decode_user_content->password
                  ];
 
-                   $_SESSION['user_info'] = $user_data;
-
+                   $_SESSION['user_info']   = $user_data;
+                   $_SESSION['email']    = $decode_user_content->email;
+                   $_SESSION['loggedin']    = $decode_user_content->id;
+                   $_SESSION['designation'] = $decode_user_content->designation;
 
                    if($decode_user_content->designation == "Admin"){
                        $_SESSION['success'] = 'You are logged in as an - Admin';
                        header('location: admin/admin_dashboard.php');
-                   } else if($decode_user_content->designation == "Staff"){
-                       $_SESSION['success'] = 'You are logged in as a - Staff';
+                   } else if($decode_user_content->designation == "Medical Team"){
+                       $_SESSION['success'] = 'You are logged in as a - Medical Team';
                        header('location: staff_dashboard.php');
                    } else if($decode_user_content->designation == "Patient") {
                        $_SESSION['success'] = 'You are logged in as a - Patient';

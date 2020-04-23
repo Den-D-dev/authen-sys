@@ -1,0 +1,51 @@
+body {
+
+}
+
+.navbar {
+    padding-right: 7%;
+    padding-left: 7%;
+}
+
+.nav-right {
+    margin-left: 60%;
+}
+
+.reg-container {
+    padding: 50px 0 100px 35%;
+}
+
+.reg-container h2 {
+    margin: 50px 0;
+}
+
+.reg-form {
+    width: 40%;
+}
+
+.login-form h3 {
+    margin-left: 10%;
+}
+
+.profile-section {
+    display: flex;
+    flex-direction: row;
+    padding: 0 10%;
+}
+
+.profile-avartar img {
+    border: 1px solid #000;
+    border-radius: 50%;
+}
+
+.profile-data {
+    height: 120px;
+    width: auto;
+    margin: 35px 0 0 20px;
+}
+
+.profile-data p {
+    font-size: 16px;
+    font-weight: 500;
+
+}

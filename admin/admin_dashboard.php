@@ -1,16 +1,12 @@
-<?php session_start();
+<?php
+include('../lib/header.php');
+require_once('../functions/alert.php');
+
 if($_SESSION['user_info']['designation'] !== 'Admin'){
   header('location: ../login.php');
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
         <h3> WELCOME ADMIN</h3>
         <p>
             <?php
@@ -33,6 +29,14 @@ if($_SESSION['user_info']['designation'] !== 'Admin'){
         <h3><a href = "admin_add_user.php">Add User</a></h3>
 
         <br>
-           <p><a href='../logout.php'>LOGOUT</a></p>
-    </body>
+<?php //include('../lib/footer.php') ?>
+
+   <p>
+   <a href='/authen-sys/index.php'>Home</a> |
+
+    <a href='/authen-sys/logout.php'>Logout</a> |
+    <a href='/authen-sys/reset.php'>Change password</a>
+
+   </p>
+</body>
 </html>

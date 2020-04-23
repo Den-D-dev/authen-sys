@@ -1,4 +1,6 @@
-<?php session_start();
+<?php
+include('lib/header.php');
+require_once('functions/alert.php');
 
 if(isset($_SESSION['user_info']) && !empty($_SESSION['user_info']['firstname'])){
     header('location: dashboard.php');
@@ -9,122 +11,94 @@ if(@$_SESSION['designation'] == 'Admin'){
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-    <head>
-    <title></title>
-    </head>
-    <body>
-        <a href="index.php">Go back</a><br>
-        <h2>Welcome! Please register</h2>
-        <div>
-            <form action="processreg.php" method="POST">
-                <label for="fname">First name:</label>
-                <input
-                <?php
-                    if(isset($_SESSION['fname'])){
-                    echo "Value =" . $_SESSION['fname'];
-                    }
-                ?>
-                 type="text" name="fname"><br>
-                    <?php if(isset($_SESSION['firstname'])){ echo "<span style='color:red';>". $_SESSION['firstname']. "</span><br>"; unset($_SESSION['firstname']); } ?>
-                <br>
+        <div class="reg-container">
+            <h2>Welcome! Please register</h2>
+            <form class="reg-form" action="processreg.php" method="POST">
+                <div class="form-group">
+                    <label for="fname">First name:</label>
+                    <input
+                    <?php if(isset($_SESSION['fname'])){ echo "Value =" . $_SESSION['fname']; unset($_SESSION['fname']);} ?>
+                    type="text" name="fname" class="form-control">
+                    <p><?php print_err_msg('f_name_err', 'red'); ?></p>
+                </div><br>
 
-                <label for="lname">Last name:</label>
-                <input
-                <?php
-                    if(isset($_SESSION['lname'])){
-                    echo "Value =" . $_SESSION['lname'];
-                    }
-                ?>
-                type="text"  name="lname" ><br>
-                    <?php if(isset($_SESSION['lastname'])){ echo "<span style='color:red';>". $_SESSION['lastname']. "</span><br>"; unset($_SESSION['lastname']); } ?>
-                <br>
+                <div class="form-group">
+                    <label for="lname">Last name:</label>
+                    <input
+                    <?php if(isset($_SESSION['lname'])){ echo "Value =" . $_SESSION['lname']; unset($_SESSION['lname']);} ?>
+                    type="text" name="lname" class="form-control">
+                    <p><?php print_err_msg('l_name_err', 'red'); ?></p>
+                </div><br>
 
+                <div class="form-group">
                     <label for="email">Email:</label>
                     <input
-                    <?php
-                        if(isset($_SESSION['email'])){
-                        echo "Value =" . $_SESSION['email'];
-                        }
-                    ?>
-                     type="email"  name="email" ><br>
-                    <?php if(isset($_SESSION['email'])){ echo "<span style='color:red';>". $_SESSION['email']. "</span><br>"; unset($_SESSION['email']); } ?>
-                    <?php if(isset($_SESSION['user'])){ echo "<span style='color:red';>". $_SESSION['user']. "</span><br>";unset($_SESSION['user']);} ?>
-                <br>
+                    <?php if(isset($_SESSION['email'])){ echo "Value =" . $_SESSION['email']; unset($_SESSION['email']); } ?>
+                    type="email" name="email" class="form-control">
+                    <p><?php print_err_msg('email_err', 'red'); ?></p>
+                    <p><?php print_err_msg('user_err', 'red'); ?></p>
+                </div><br>
 
-                <label for="password">Password:</label>
-                <input type="password"  name="password" ><br>
-                    <?php if(isset($_SESSION['password'])){ echo "<span style='color:red';>". $_SESSION['password']. "</span><br>"; unset($_SESSION['password']); } ?>
-                <br>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password"  name="password" class="form-control">
+                    <p><?php print_err_msg('pwd_err', 'red'); ?></p>
+                </div><br>
 
-                <label for="gender">Gender:</label>
-                <select  name="gender">
-                    <option value=" ">please select</option>
-                    <option
-                    <?php
-                        if(isset($_SESSION['gender']) && $_SESSION['gender'] == 'Male'){
-                        echo "selected" ;
-                        }
-                    ?>
-                     value="Male">Male</option>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select  name="gender" class="form-control">
+                        <option></option>
+                        <option
+                        <?php if(isset($_SESSION['gender']) && $_SESSION['gender'] == 'Male'){ echo "selected"; unset($_SESSION['gender']);}?>
+                         value="Male">
+                         Male
+                        </option>
 
-                    <option
-                    <?php
-                        if(isset($_SESSION['gender']) && $_SESSION['gender'] == 'Female'){
-                        echo "selected" ;
-                        }
-                    ?>
-                     value="Female">Female</option>
-                </select>
-                <br>
-                <?php if(isset($_SESSION['gender'])){ echo "<span style='color:red';>". $_SESSION['gender']. "</span><br>"; unset($_SESSION['gender']); } ?>
-                <br>
+                        <option
+                        <?php if(isset($_SESSION['gender']) && $_SESSION['gender'] == 'Female'){ echo "selected"; unset($_SESSION['gender']);} ?>
+                         value="Female">
+                         Female
+                        </option>
+                    </select>
+                    <p><?php print_err_msg('gender_err', 'red'); ?></p>
+                </div>
 
-                <label for="designation">Designation:</label>
-                    <select  name="designation">
-                    <option value=" ">please select</option>
-                    <option
-                    <?php
-                        if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Admin'){
-                        echo "selected";
-                        }
-                    ?>
-                     value="Admin">Admin</option>
+                <div class="form-group">
+                   <label for="designation">Designation:</label>
+                   <select  name="designation" class="form-control">
+                       <option></option>
+                       <option
+                       <?php if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Admin'){ echo "selected"; unset($_SESSION['designation']); } ?>
+                        value="Admin">
+                        Admin
+                       </option>
 
-                    <option
-                    <?php
-                        if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Staff'){
-                        echo "selected" ;
-                        }
-                    ?>
-                     value="Staff">Staff</option>
+                       <option
+                       <?php if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Medical Team'){ echo "selected"; unset($_SESSION['designation']); } ?>
+                        value="Medical Team">
+                        Medical Team
+                       </option>
 
-                    <option
-                    <?php
-                        if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Patient'){
-                        echo "selected";
-                        }
-                    ?>
-                     value="Patient">Patient</option>
-                </select><br>
-                <?php if(isset($_SESSION['designation'])){ echo "<span style='color:red';>". $_SESSION['designation']. "</span><br>"; unset($_SESSION['designation']); } ?>
-                <br>
+                       <option
+                       <?php if(isset($_SESSION['designation']) && $_SESSION['designation'] == 'Patient'){ echo "selected"; unset($_SESSION['designation']); } ?>
+                        value="Patient">
+                        Patient
+                       </option>
+                   </select>
+                   <p><?php print_err_msg ('desig_err', 'red'); ?></p>
+                 </div>
 
-                <label for="department">Department:</label>
-                <input
-                <?php
-                    if(isset($_SESSION['department'])){
-                    echo "Value =" . $_SESSION['department'];
-                    }
-                ?>
-                 type="text"  name="department" ><br>
-                    <?php if(isset($_SESSION['department'])){ echo "<span style='color:red';>". $_SESSION['department']. "</span><br>"; unset($_SESSION['department']); } ?>
-                <br>
+                 <div class="form-group">
+                     <label for="department">Department:</label>
+                     <input
+                     <?php if(isset($_SESSION['department'])){ echo "Value =" . $_SESSION['department']; unset($_SESSION['department']);} ?>
+                     type="text"  name="department" class="form-control">
+                     <p><?php print_err_msg ('dept_err', 'red'); ?></p>
+                 </div><br>
 
-                <br>
-                <input type="submit" name="Submit">
+                 <button type="submit" name="Submit" class="btn btn-success btn-lg btn-block">Submit</button>
             </form>
         </div>
-    </body>
-</html>
+
+<?php include('lib/footer.php') ?>
