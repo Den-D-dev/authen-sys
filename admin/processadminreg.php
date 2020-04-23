@@ -134,7 +134,6 @@ if (count($errors) > 0) {
    // 'you have  errors';
 }else{
 
-    echo 'success'. "<br>";
 //counting users in the db/users folder adn auto incrementing user_id
 $all_users= scandir("../db/user/");
 $count_users = count($all_users);

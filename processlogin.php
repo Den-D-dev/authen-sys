@@ -62,8 +62,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       $all_users= scandir("db/user/");
       $count_users = count($all_users);
       date_default_timezone_set("Africa/Lagos");
-      $login_time =date("h:i:sa");
-      $login_date = date("Y-m-d");
+      $login_time = date("h:i A");
+      $login_date = date("F\, jS Y ");
 
 
       for ($counter=0; $counter < $count_users ; $counter++) {

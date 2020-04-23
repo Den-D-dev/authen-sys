@@ -11,6 +11,12 @@ body {
     margin-left: 60%;
 }
 
+.welcome {
+    font-size: 17px;
+    font-weight: 500;
+    color: #000080 !important;
+}
+
 .reg-container {
     padding: 50px 0 100px 35%;
 }
@@ -27,10 +33,22 @@ body {
     margin-left: 10%;
 }
 
-.profile-section {
+
+.page-header {
+    margin-left: 12%;
+}
+
+.profile-section, .time-cards {
     display: flex;
     flex-direction: row;
-    padding: 0 10%;
+}
+
+.profile-section {
+    padding: 5% 10% 0 10%;
+}
+
+.time-cards {
+    padding: 3% 0 0 19%;
 }
 
 .profile-avartar img {
@@ -41,11 +59,62 @@ body {
 .profile-data {
     height: 120px;
     width: auto;
-    margin: 35px 0 0 20px;
+    margin: 5px 0 0 20px;
 }
 
-.profile-data p {
+.profile-data p, .right-col-email {
     font-size: 16px;
     font-weight: 500;
 
+}
+
+.right-col {
+    margin-left: 30%;
+}
+
+.book-btn {
+    margin-top: 40%;
+}
+
+.card-set {
+    width: 250px;
+    height: 70px;
+    border-radius: 5px;
+    margin-left: 5%;
+    border: 1px solid #e3e6f0;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15)!important;
+    padding: 10px 0 0 10px;
+}
+
+.card-set h6 {
+    font-size: 13px;
+}
+
+.card-set p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.card-green h6 {
+    color: green;
+}
+
+.card-green {
+    border-left: 5px solid green;
+}
+
+.card-blue h6 {
+    color: blue;
+}
+
+.card-blue {
+    border-left: 5px solid blue;
+}
+
+.card-orange h6 {
+    color: orange;
+}
+
+.card-orange {
+    border-left: 5px solid orange;
 }

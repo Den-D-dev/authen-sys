@@ -143,8 +143,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $count_users = count($all_users);
         $user_id = $count_users-1;
         date_default_timezone_set("Africa/Lagos");
-        $reg_time = date("h:i:sa");
-        $reg_date = date("Y-m-d");
+        $reg_time = date("h:i A");
+        $reg_date = date("F\, jS Y ");
 
     //putting user info into an array object for proper storage in the file system
         $data=[

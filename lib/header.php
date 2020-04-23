@@ -31,10 +31,10 @@
       </li>
       <?php }else{?>
           <li class="nav-item">
-            <p class="nav-link"> Welcome! <?php echo $_SESSION['user_info']['firstname'];?></p>
+            <p class="nav-link welcome"> Welcome! <?php echo $_SESSION['user_info']['firstname'];?></p>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="reset.php">Change password</a>
+            <a class="nav-link" href="reset.php">Reset password</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>

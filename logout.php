@@ -3,8 +3,8 @@ session_start();
 
 
 date_default_timezone_set("Africa/Lagos");
-$last_login_time = date("h:i:sa");
-$last_login_date = date("Y-m-d");
+$last_login_time = date("h:i A");
+$last_login_date = date("F\, jS Y ");;
 
 $email=$_SESSION['user_info']['email'];
 
@@ -12,8 +12,8 @@ $email=$_SESSION['user_info']['email'];
 $all_users= scandir("db/user/");
 $count_users = count($all_users);
 date_default_timezone_set("Africa/Lagos");
-$login_time =date("h:i:sa");
-$login_date = date("Y-m-d");
+$login_time = date("h:i A");
+$login_date = date("F\, jS Y ");;
 
 
 for ($counter=0; $counter < $count_users ; $counter++) {

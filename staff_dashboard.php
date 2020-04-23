@@ -1,7 +1,7 @@
 <?php
 include('lib/header.php');
 
-if($_SESSION['user_info']['designation'] !== 'Staff'){
+if($_SESSION['user_info']['designation'] !== 'Medical Team'){
   header('location: login.php');
 }
 
