@@ -15,6 +15,27 @@ if(!isset($_SESSION['loggedin'])){
     header("location: login.php");
 };
 
+
+$email = $_SESSION['user_info']['email'];
+$all_appointments = scandir("db/appointments/");
+$count_users_appointments = count($all_appointments);
+for ($counter = 0; $counter < $count_users_appointments; $counter++) {
+    $current_user_appointments = $all_appointments[$counter];
+    if ($current_user_appointments == $email.".json") {
+            $user_appointment = file_get_contents("db/appointments/".$email.".json");
+            $decode_user_appointment_content = json_decode($user_appointment);
+            // print_r($decode_user_appointment_content);
+            // die();
+            $appointment_data = $decode_user_appointment_content;
+            $_SESSION['appointment'] = $appointment_data;
+            // print_r($appointment_data);
+            // die();
+    }
+    $_SESSION['error'] = 'No appointment yet';
+}
+
+
+
 ?>
 
 
@@ -23,10 +44,10 @@ if(!isset($_SESSION['loggedin'])){
     <h5 class="page-header">PATIENT DASHBOARD</h5>
     <p>
         <?php
-        if(isset($_SESSION['error'])) {
-            echo "<span style='color:red';>". $_SESSION['error']. "</span><br>";
-            unset($_SESSION['error']);
-        }
+        // if(isset($_SESSION['error'])) {
+        //     echo "<span style='color:red';>". $_SESSION['error']. "</span><br>";
+        //     unset($_SESSION['error']);
+        // }
         ?>
     </p>
     <p>
@@ -41,7 +62,7 @@ if(!isset($_SESSION['loggedin'])){
 
     <div class="profile-section">
         <div class="profile-avartar">
-            <img src="resources/img/person.jpg" alt="">
+            <img src="resources/img/person2.jpg" alt="">
         </div>
         <div class="profile-data">
             <p>User Id: <?php echo " SNH-nb" .$_SESSION['loggedin']; ?></p>
@@ -76,15 +97,15 @@ if(!isset($_SESSION['loggedin'])){
                           <div class="form-group">
                               <label for="full_name">Full name:</label>
                               <input
-                              <?php //if(isset($_SESSION['full_name'])){ echo "Value =" . $_SESSION['full_name']; unset($_SESSION['full_name']);} ?>
+                              <?php  //echo "Value =" . $_SESSION['user_info']['firstname']; ?>
                               type="text" name="full_name" class="form-control">
                           </div><br>
 
                           <div class="form-group">
                               <label class="control-label" for="email">Email:</label>
                               <input
-                              <?php //if(isset($_SESSION['email'])){ echo "Value =" . $_SESSION['email']; unset($_SESSION['email']);} ?>
-                              type="email" name="email" class="form-control" required>
+                              <?php echo "Value =" . $_SESSION['user_info']['email']; ?>
+                              type="email" name="email" class="form-control" readonly>
                           </div><br>
 
 
@@ -162,18 +183,19 @@ if(!isset($_SESSION['loggedin'])){
         </div>
 
         <div class="card-set card-orange">
-            <h6> Logged Out :</h6>
+            <h6> Last Time You Logged Out :</h6>
             <p><?php echo $_SESSION['user_info']['logout_date']. " "; echo $_SESSION['user_info']['logout_time']; ?></p>
         </div>
     </div>
 <hr>
 
+<?php if(!isset($_SESSION['appointment'])){ ?>
+    <p class="No-appointment-text"><?php echo "No appointment schedule yet"; ?></p>
 
-
+<?php } else { ?>
 <table class="table">
   <thead>
     <tr>
-      <th scope="col"></th>
       <th scope="col">Id</th>
       <th scope="col">Appointment Date</th>
       <th scope="col">Appointment Time</th>
@@ -184,36 +206,16 @@ if(!isset($_SESSION['loggedin'])){
   </thead>
   <tbody>
     <tr>
-      <th scope="row">1</th>
-      <td>Apm-1</td>
-      <td>2020-04-27</td>
-      <td>12:00 AM</td>
-      <td>Consultation</td>
-      <td>Laboratory</td>
-      <td>23-04-2020</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Apm-2</td>
-      <td>2020-04-27</td>
-      <td>12:00 AM</td>
-      <td>Follow</td>
-      <td>General Medicine</td>
-      <td>23-04-2020</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Apm-3</td>
-      <td>2020-04-27</td>
-      <td>12:00 AM</td>
-      <td>Consultation</td>
-      <td>Dentistry</td>
-      <td>23-04-2020</td>
+      <td>Apm- <?php print $appointment_data->id ?></td>
+      <td><?php print $appointment_data->appointment_date ?></td>
+      <td><?php print $appointment_data->appointment_time ?></td>
+      <td><?php print $appointment_data->appointment_nature ?></td>
+      <td><?php print $appointment_data->appointment_department ?></td>
+      <td><?php print $appointment_data->reg_date ?></td>
     </tr>
   </tbody>
 </table>
-
-
+<?php } ?>
 
 
 </div>

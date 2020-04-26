@@ -29,7 +29,7 @@ if ($errorCount > 0) {
     //counting users in the db/users folder adn auto incrementing user_id
     $allAppointments = scandir("db/appointments/");
     $countAppointments = count($allAppointments);
-    $appointment_id = $countAppointments-1;
+    $appointment_id = $countAppointments+1;
 
     date_default_timezone_set("Africa/Lagos");
     $book_time = date("h:i A");
@@ -51,7 +51,7 @@ if ($errorCount > 0) {
 
          $_SESSION['appointment_data'] = $appointment_data;
 
-        file_put_contents("db/appointments/".$email.".json" , json_encode($apponitment_data));
+        file_put_contents("db/appointments/".$email.".json", json_encode($apponitment_data), FILE_APPEND);
         header('location: dashboard.php');
         $_SESSION['success'] = "Appointment booked Successfully";
 }
